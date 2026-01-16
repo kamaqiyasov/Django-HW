@@ -16,5 +16,86 @@
       "author": "Джордж Оруэл",
       "pub_date": "2016-12-06"
     }
+  },
+    {
+    "model": "books.book",
+    "pk": 1,
+    "fields": {
+      "name": "1984",
+      "author": "Джордж Оруэлл",
+      "pub_date": "2016-12-06"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 2,
+    "fields": {
+      "name": "Мастер и Маргарита",
+      "author": "Михаил Булгаков",
+      "pub_date": "2016-12-05"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+      "name": "Преступление и наказание",
+      "author": "Фёдор Достоевский",
+      "pub_date": "2016-12-03"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 5,
+    "fields": {
+      "name": "Гарри Поттер и философский камень",
+      "author": "Джоан Роулинг",
+      "pub_date": "2016-12-11"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 6,
+    "fields": {
+      "name": "Властелин колец",
+      "author": "Джон Толкин",
+      "pub_date": "2016-12-01"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 7,
+    "fields": {
+      "name": "Унесённые ветром",
+      "author": "Маргарет Митчелл",
+      "pub_date": "2016-12-08"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 8,
+    "fields": {
+      "name": "Старик и море",
+      "author": "Эрнест Хемингуэй",
+      "pub_date": "2016-12-15"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 9,
+    "fields": {
+      "name": "Маленький принц",
+      "author": "Антуан де Сент-Экзюпери",
+      "pub_date": "2016-12-03"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 10,
+    "fields": {
+      "name": "Гордость и предубеждение",
+      "author": "Джейн Остин",
+      "pub_date": "2016-12-20"
+    }
   }
 ]
