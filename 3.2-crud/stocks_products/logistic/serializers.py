@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from logistic.models import Product, StockProduct
+from logistic.models import Product, Stock, StockProduct
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -12,34 +12,38 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductPositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = StockProduct
-        fields = '__all__'
+        fields = ['product', 'quantity', 'price']
 
 
 class StockSerializer(serializers.ModelSerializer):
-    positions = ProductPositionSerializer(many=True)
+    
+    positions = ProductPositionSerializer(many=True, read_only=False)
 
+    class Meta:
+        model = Stock
+        fields = ['id', 'address', 'positions']
+
+    def _save_positions(self, stock, positions):
+        for position in positions:
+            StockProduct.objects.update_or_create(
+                stock=stock,
+                product=position['product'],
+                defaults={
+                    'quantity': position['quantity'],
+                    'price': position['price']
+                    }
+                )
+    
     def create(self, validated_data):
-        # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
-
-        # создаем склад по его параметрам
         stock = super().create(validated_data)
-
-        # здесь вам надо заполнить связанные таблицы
-        # в нашем случае: таблицу StockProduct
-        # с помощью списка positions
+        self._save_positions(stock, positions)
 
         return stock
 
     def update(self, instance, validated_data):
-        # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
-
-        # обновляем склад по его параметрам
         stock = super().update(instance, validated_data)
-
-        # здесь вам надо обновить связанные таблицы
-        # в нашем случае: таблицу StockProduct
-        # с помощью списка positions
+        self._save_positions(stock, positions)
 
         return stock
