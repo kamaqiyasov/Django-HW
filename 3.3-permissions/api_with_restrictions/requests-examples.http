@@ -1,42 +1,92 @@
 # примеры API-запросов
 
-@baseUrl = https://localhost:8000/api
+@baseUrl = http://localhost:8000/api
+@token = 34dc18da2921e59c3b9f09c33359a20260774c0b 
+@anothertoken = d74ee8b37cba0f6ac85ab4679b710b07372b6543
+@bot2token = 979a0295673c04a7d7bd64a8de2022c4b9aeab01
 
 # получение объявлений
 GET {{baseUrl}}/advertisements/
-Content-Type: application/json
 
 ###
 
 # создание объявления
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json
-Authorization: Token 902ef055a9ac93f18327f1f9c45ab059f1a62c7d
+Authorization: Token {{token}}
 
 {
-  "title": "Шкаф IKEA",
+  "title": "Шкаф IKEA454",
+  "description": "Срочно"
+}
+
+###
+
+# создание объявления
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token {{bot2token}}
+
+{
+  "title": "Шкаф Для Бота",
   "description": "Срочно"
 }
 
 ###
 
 # попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/1/
+PATCH {{baseUrl}}/advertisements/5/
 Content-Type: application/json
-Authorization: Token 902ef055a9ac93f18327f1f9c45ab059f1a62c7d
+Authorization: Token {{token}}
+
+{
+  "status": "DRAFT"
+}
+
+###
+
+# попытка поменять объявление 2
+PATCH {{baseUrl}}/advertisements/8/
+Content-Type: application/json
+Authorization: Token {{anothertoken}}
 
 {
   "status": "CLOSED"
 }
 
+
+###
+
+DELETE {{baseUrl}}/advertisements/7/
+Authorization: Token {{token}}
 ###
 
 # фильтрация по создателю
-GET {{baseUrl}}/advertisements/?creator=3
+GET {{baseUrl}}/advertisements/?creator=1
 Content-Type: application/json
 
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at_before=2020-10-01
+GET {{baseUrl}}/advertisements/?created_at_before=2027-10-01
 Content-Type: application/json
+
+###
+
+# Добавить в избранное
+POST {{baseUrl}}/advertisements/5/favorite/
+Content-Type: application/json
+Authorization: Token {{bot2token}}
+Content-Type: application/json
+
+###
+
+# Удаление из избранного
+DELETE {{baseUrl}}/advertisements/12/favorite/
+Authorization: Token {{bot2token}}
+
+###
+
+# Все избранные
+GET {{baseUrl}}/advertisements/?is_favorited=false
+Authorization: Token {{bot2token}}
